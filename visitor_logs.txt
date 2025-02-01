@@ -1,0 +1,2 @@
+Timestamp: 2023-10-15 14:30:45, IP: 127.0.0.1, Latitude: 37.7749, Longitude: -122.4194
+Timestamp: 2023-10-15 14:31:10, IP: 192.168.1.100, Latitude: 34.0522, Longitude: -118.2437
