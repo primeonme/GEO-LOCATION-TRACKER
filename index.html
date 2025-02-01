@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocation Logger</title>
+</head>
+<body>
+    <h1>Get Your Location</h1>
+    <button onclick="getLocation()">Get Location</button>
+    <p id="location"></p>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Display the location on the page
+            document.getElementById("location").innerHTML = `Latitude: ${latitude}, Longitude: ${longitude}`;
+
+            // Send the location data to the server for logging
+            fetch("/log", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    latitude: latitude,
+                    longitude: longitude,
+                }),
+            })
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error logging location:", error));
+        }
+    </script>
+</body>
+</html>
